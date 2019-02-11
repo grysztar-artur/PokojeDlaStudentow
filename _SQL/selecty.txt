@@ -1,0 +1,10 @@
+--1. Wyœwietl budynki, w których znajduje siê winda
+select * from Budynek where czy_winda = 1;
+
+--2. Wyœwietl imiê i nazwisko studenta i numer pokoju, w którym mieszka
+select s.imie, s.nazwisko, p.nr_pokoju from Student s
+join Pokoj p on p.id_pokoju = s.id_pokoju;
+
+--3. Studenci mieszkaj¹cy w budynku, którym opiekuje sie Tomasz Nowak
+select s.imie, s.nazwisko from Student s
+where s.id_pokoju in ( select nr_pokoju from Pokoj where id_budynku in (select id_budynku from Opiekun where nazwisko = 'Nowak' and imie = 'Tomasz'));

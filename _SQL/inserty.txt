@@ -1,0 +1,29 @@
+use PokojeDlaStudentow
+go
+insert into dbo.Adres values ('Krosno', 'Krosno', '38-400', 'Topolowa', '10', '5')
+insert into dbo.Adres values ('Rzeszów', 'Rzeszów', '23-231', 'Bohaterów', '50', '1')
+insert into dbo.Adres values ('Jas³o', 'Jas³o', '67-676', 'Brzozowa', '99', '2b')
+go
+insert into dbo.Opiekun values ('Jan', 'Kowalski', '123-123-123', 3)
+insert into dbo.Opiekun values ('Tomasz', 'Nowak', '43-123-123', 3)
+insert into dbo.Opiekun values ('Krzysztof', 'Wiœniewski', '987654321', 2)
+go
+insert into dbo.Budynek values (20, 4, 1, 1, 3)
+insert into dbo.Budynek values (10, 2, 0, 1, 1)
+insert into dbo.Budynek values (50, 10, 1, 3, 2)
+go
+insert into dbo.Pokoj values (35, 1, 3)
+insert into dbo.Pokoj values (99, 0, 1)
+insert into dbo.Pokoj values (2, 1, 2)
+go
+insert into dbo.Uczelnia values ('Politechnika', 1)
+insert into dbo.Uczelnia values ('Uniwersytet', 2)
+insert into dbo.Uczelnia values ('PWSZ Krosno', 1)
+go
+insert into dbo.Kierunek values ('Informatyka', 3)
+insert into dbo.Kierunek values ('Kulturoznawstwo', 2)
+insert into dbo.Kierunek values ('Turystyka', 1)
+go
+insert into dbo.Student values ('Janusz', 'Nowik', '10322496101', '321321321', 1, 1, 1)
+insert into dbo.Student values ('Marcin', 'Potoczny', '68492049602', '999999999', 2, 2, 2)
+insert into dbo.Student values ('Micha³', 'Pi¹tek', '69129329400', 34-123-622, 3, 3, 3)

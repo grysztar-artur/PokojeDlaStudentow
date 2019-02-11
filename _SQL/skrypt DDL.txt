@@ -1,0 +1,133 @@
+CREATE DATABASE [PokojeDlaStudentow]
+GO
+USE [PokojeDlaStudentow]
+GO
+CREATE TABLE [dbo].[Adres](
+	[id_adresu] [int] IDENTITY(1,1) NOT NULL,
+	[miejscowosc] [varchar](50) NOT NULL,
+	[poczta] [varchar](100) NOT NULL,
+	[kod_pocztowy] [varchar](10) NOT NULL,
+	[ulica] [varchar](50) NULL,
+	[numer_domu] [varchar](10) NOT NULL,
+	[numer_lokalu] [varchar](10) NULL,
+ CONSTRAINT [PK_Adres] PRIMARY KEY CLUSTERED 
+(
+	[id_adresu] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Uczelnia](
+	[id_uczelni] [int] IDENTITY(1,1) NOT NULL,
+	[nazwa] [varchar](300) NOT NULL,
+	[id_adresu] [int] NOT NULL,
+ CONSTRAINT [PK_Uczelnia] PRIMARY KEY CLUSTERED 
+(
+	[id_uczelni] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Opiekun](
+	[id_opiekuna] [int] IDENTITY(1,1) NOT NULL,
+	[imie] [varchar](50) NOT NULL,
+	[nazwisko] [varchar](100) NOT NULL,
+	[telefon] [varchar](20) NOT NULL,
+	[id_adresu] [int] NOT NULL,
+ CONSTRAINT [PK_Opiekun] PRIMARY KEY CLUSTERED 
+(
+	[id_opiekuna] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Kierunek](
+	[id_kierunku] [int] IDENTITY(1,1) NOT NULL,
+	[nazwa] [varchar](300) NOT NULL,
+	[id_uczelni] [int] NOT NULL,
+ CONSTRAINT [PK_Kierunek] PRIMARY KEY CLUSTERED 
+(
+	[id_kierunku] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Budynek](
+	[id_budynku] [int] IDENTITY(1,1) NOT NULL,
+	[ilosc_pokoi] [int] NOT NULL,
+	[ilosc_pieter] [int] NOT NULL,
+	[czy_winda] [bit] NOT NULL,
+	[id_adresu] [int] NOT NULL,
+	[id_opiekuna] [int] NOT NULL,
+ CONSTRAINT [PK_Budynek] PRIMARY KEY CLUSTERED 
+(
+	[id_budynku] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Pokoj](
+	[id_pokoju] [int] IDENTITY(1,1) NOT NULL,
+	[nr_pokoju] [int] NOT NULL,
+	[czy_lazienka] [bit] NOT NULL,
+	[id_budynku] [int] NOT NULL,
+ CONSTRAINT [PK_Pokoj] PRIMARY KEY CLUSTERED 
+(
+	[id_pokoju] ASC
+)
+)
+GO
+CREATE TABLE [dbo].[Student](
+	[id_studenta] [int] IDENTITY(1,1) NOT NULL,
+	[imie] [varchar](50) NOT NULL,
+	[nazwisko] [varchar](100) NOT NULL,
+	[pesel] [varchar](20) NOT NULL,
+	[telefon] [varchar](20) NOT NULL,
+	[id_adresu] [int] NOT NULL,
+	[id_kierunku] [int] NOT NULL,
+	[id_pokoju] [int] NOT NULL,
+ CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
+(
+	[id_studenta] ASC
+)
+)
+GO
+ALTER TABLE [dbo].[Uczelnia]  WITH CHECK ADD  CONSTRAINT [FK_Uczelnia_Adres] FOREIGN KEY([id_adresu])
+REFERENCES [dbo].[Adres2] ([id_adresu])
+GO
+ALTER TABLE [dbo].[Uczelnia] CHECK CONSTRAINT [FK_Uczelnia_Adres]
+GO
+ALTER TABLE [dbo].[Opiekun]  WITH CHECK ADD  CONSTRAINT [FK_Opiekun_Adres] FOREIGN KEY([id_adresu])
+REFERENCES [dbo].[Adres2] ([id_adresu])
+GO
+ALTER TABLE [dbo].[Opiekun] CHECK CONSTRAINT [FK_Opiekun_Adres]
+GO
+ALTER TABLE [dbo].[Kierunek]  WITH CHECK ADD  CONSTRAINT [FK_Kierunek_Uczelnia] FOREIGN KEY([id_uczelni])
+REFERENCES [dbo].[Uczelnia] ([id_uczelni])
+GO
+ALTER TABLE [dbo].[Kierunek] CHECK CONSTRAINT [FK_Kierunek_Uczelnia]
+GO
+ALTER TABLE [dbo].[Budynek]  WITH CHECK ADD  CONSTRAINT [FK_Budynek_Adres] FOREIGN KEY([id_adresu])
+REFERENCES [dbo].[Adres2] ([id_adresu])
+GO
+ALTER TABLE [dbo].[Budynek] CHECK CONSTRAINT [FK_Budynek_Adres]
+GO
+ALTER TABLE [dbo].[Budynek]  WITH CHECK ADD  CONSTRAINT [FK_Budynek_Opiekun] FOREIGN KEY([id_opiekuna])
+REFERENCES [dbo].[Opiekun] ([id_opiekuna])
+GO
+ALTER TABLE [dbo].[Budynek] CHECK CONSTRAINT [FK_Budynek_Opiekun]
+GO
+ALTER TABLE [dbo].[Pokoj]  WITH CHECK ADD  CONSTRAINT [FK_Pokoj_Budynek] FOREIGN KEY([id_budynku])
+REFERENCES [dbo].[Budynek] ([id_budynku])
+GO
+ALTER TABLE [dbo].[Pokoj] CHECK CONSTRAINT [FK_Pokoj_Budynek]
+GO
+ALTER TABLE [dbo].[Student]  WITH CHECK ADD  CONSTRAINT [FK_Student_Adres] FOREIGN KEY([id_adresu])
+REFERENCES [dbo].[Adres2] ([id_adresu])
+GO
+ALTER TABLE [dbo].[Student] CHECK CONSTRAINT [FK_Student_Adres]
+GO
+ALTER TABLE [dbo].[Student]  WITH CHECK ADD  CONSTRAINT [FK_Student_Kierunek] FOREIGN KEY([id_kierunku])
+REFERENCES [dbo].[Kierunek] ([id_kierunku])
+GO
+ALTER TABLE [dbo].[Student] CHECK CONSTRAINT [FK_Student_Kierunek]
+GO
+ALTER TABLE [dbo].[Student]  WITH CHECK ADD  CONSTRAINT [FK_Student_Pokoj] FOREIGN KEY([id_pokoju])
+REFERENCES [dbo].[Pokoj] ([id_pokoju])
+GO
+ALTER TABLE [dbo].[Student] CHECK CONSTRAINT [FK_Student_Pokoj]
