@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PokojeDlaStudentowModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adres">
+          <Key>
+            <PropertyRef Name="id_adresu" />
+          </Key>
+          <Property Name="id_adresu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="miejscowosc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="poczta" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="kod_pocztowy" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ulica" Type="varchar" MaxLength="50" />
+          <Property Name="numer_domu" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="numer_lokalu" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Budynek">
+          <Key>
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="id_budynku" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ilosc_pokoi" Type="int" Nullable="false" />
+          <Property Name="ilosc_pieter" Type="int" Nullable="false" />
+          <Property Name="czy_winda" Type="bit" Nullable="false" />
+          <Property Name="id_adresu" Type="int" Nullable="false" />
+          <Property Name="id_opiekuna" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kierunek">
+          <Key>
+            <PropertyRef Name="id_kierunku" />
+          </Key>
+          <Property Name="id_kierunku" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="id_uczelni" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Opiekun">
+          <Key>
+            <PropertyRef Name="id_opiekuna" />
+          </Key>
+          <Property Name="id_opiekuna" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_adresu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pokoj">
+          <Key>
+            <PropertyRef Name="id_pokoju" />
+          </Key>
+          <Property Name="id_pokoju" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nr_pokoju" Type="int" Nullable="false" />
+          <Property Name="czy_lazienka" Type="bit" Nullable="false" />
+          <Property Name="id_budynku" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id_studenta" />
+          </Key>
+          <Property Name="id_studenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="pesel" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_adresu" Type="int" Nullable="false" />
+          <Property Name="id_kierunku" Type="int" Nullable="false" />
+          <Property Name="id_pokoju" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uczelnia">
+          <Key>
+            <PropertyRef Name="id_uczelni" />
+          </Key>
+          <Property Name="id_uczelni" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="id_adresu" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Budynek_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Budynek">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Budynek_Opiekun">
+          <End Role="Opiekun" Type="Self.Opiekun" Multiplicity="1" />
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opiekun">
+              <PropertyRef Name="id_opiekuna" />
+            </Principal>
+            <Dependent Role="Budynek">
+              <PropertyRef Name="id_opiekuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kierunek_Uczelnia">
+          <End Role="Uczelnia" Type="Self.Uczelnia" Multiplicity="1" />
+          <End Role="Kierunek" Type="Self.Kierunek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uczelnia">
+              <PropertyRef Name="id_uczelni" />
+            </Principal>
+            <Dependent Role="Kierunek">
+              <PropertyRef Name="id_uczelni" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Opiekun_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Opiekun" Type="Self.Opiekun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Opiekun">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pokoj_Budynek">
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="1" />
+          <End Role="Pokoj" Type="Self.Pokoj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynek">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Pokoj">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Kierunek">
+          <End Role="Kierunek" Type="Self.Kierunek" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kierunek">
+              <PropertyRef Name="id_kierunku" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_kierunku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Pokoj">
+          <End Role="Pokoj" Type="Self.Pokoj" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pokoj">
+              <PropertyRef Name="id_pokoju" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_pokoju" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczelnia_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Uczelnia" Type="Self.Uczelnia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Uczelnia">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PokojeDlaStudentowModelStoreContainer">
+          <EntitySet Name="Adres" EntityType="Self.Adres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Budynek" EntityType="Self.Budynek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kierunek" EntityType="Self.Kierunek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Opiekun" EntityType="Self.Opiekun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pokoj" EntityType="Self.Pokoj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uczelnia" EntityType="Self.Uczelnia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Budynek_Adres" Association="Self.FK_Budynek_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Budynek" EntitySet="Budynek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Budynek_Opiekun" Association="Self.FK_Budynek_Opiekun">
+            <End Role="Opiekun" EntitySet="Opiekun" />
+            <End Role="Budynek" EntitySet="Budynek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kierunek_Uczelnia" Association="Self.FK_Kierunek_Uczelnia">
+            <End Role="Uczelnia" EntitySet="Uczelnia" />
+            <End Role="Kierunek" EntitySet="Kierunek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Opiekun_Adres" Association="Self.FK_Opiekun_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Opiekun" EntitySet="Opiekun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pokoj_Budynek" Association="Self.FK_Pokoj_Budynek">
+            <End Role="Budynek" EntitySet="Budynek" />
+            <End Role="Pokoj" EntitySet="Pokoj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Adres" Association="Self.FK_Student_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Kierunek" Association="Self.FK_Student_Kierunek">
+            <End Role="Kierunek" EntitySet="Kierunek" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Pokoj" Association="Self.FK_Student_Pokoj">
+            <End Role="Pokoj" EntitySet="Pokoj" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczelnia_Adres" Association="Self.FK_Uczelnia_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Uczelnia" EntitySet="Uczelnia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PokojeDlaStudentowModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adres">
+          <Key>
+            <PropertyRef Name="id_adresu" />
+          </Key>
+          <Property Name="id_adresu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="miejscowosc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="poczta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kod_pocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ulica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numer_domu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numer_lokalu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Budynek" Relationship="Self.FK_Budynek_Adres" FromRole="Adres" ToRole="Budynek" />
+          <NavigationProperty Name="Opiekun" Relationship="Self.FK_Opiekun_Adres" FromRole="Adres" ToRole="Opiekun" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Adres" FromRole="Adres" ToRole="Student" />
+          <NavigationProperty Name="Uczelnia" Relationship="Self.FK_Uczelnia_Adres" FromRole="Adres" ToRole="Uczelnia" />
+        </EntityType>
+        <EntityType Name="Budynek">
+          <Key>
+            <PropertyRef Name="id_budynku" />
+          </Key>
+          <Property Name="id_budynku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ilosc_pokoi" Type="Int32" Nullable="false" />
+          <Property Name="ilosc_pieter" Type="Int32" Nullable="false" />
+          <Property Name="czy_winda" Type="Boolean" Nullable="false" />
+          <Property Name="id_adresu" Type="Int32" Nullable="false" />
+          <Property Name="id_opiekuna" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adres" Relationship="Self.FK_Budynek_Adres" FromRole="Budynek" ToRole="Adres" />
+          <NavigationProperty Name="Opiekun" Relationship="Self.FK_Budynek_Opiekun" FromRole="Budynek" ToRole="Opiekun" />
+          <NavigationProperty Name="Pokoj" Relationship="Self.FK_Pokoj_Budynek" FromRole="Budynek" ToRole="Pokoj" />
+        </EntityType>
+        <EntityType Name="Kierunek">
+          <Key>
+            <PropertyRef Name="id_kierunku" />
+          </Key>
+          <Property Name="id_kierunku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_uczelni" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Uczelnia" Relationship="Self.FK_Kierunek_Uczelnia" FromRole="Kierunek" ToRole="Uczelnia" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Kierunek" FromRole="Kierunek" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Opiekun">
+          <Key>
+            <PropertyRef Name="id_opiekuna" />
+          </Key>
+          <Property Name="id_opiekuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_adresu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adres" Relationship="Self.FK_Opiekun_Adres" FromRole="Opiekun" ToRole="Adres" />
+          <NavigationProperty Name="Budynek" Relationship="Self.FK_Budynek_Opiekun" FromRole="Opiekun" ToRole="Budynek" />
+        </EntityType>
+        <EntityType Name="Pokoj">
+          <Key>
+            <PropertyRef Name="id_pokoju" />
+          </Key>
+          <Property Name="id_pokoju" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nr_pokoju" Type="Int32" Nullable="false" />
+          <Property Name="czy_lazienka" Type="Boolean" Nullable="false" />
+          <Property Name="id_budynku" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Budynek" Relationship="Self.FK_Pokoj_Budynek" FromRole="Pokoj" ToRole="Budynek" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Pokoj" FromRole="Pokoj" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id_studenta" />
+          </Key>
+          <Property Name="id_studenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pesel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_adresu" Type="Int32" Nullable="false" />
+          <Property Name="id_kierunku" Type="Int32" Nullable="false" />
+          <Property Name="id_pokoju" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adres" Relationship="Self.FK_Student_Adres" FromRole="Student" ToRole="Adres" />
+          <NavigationProperty Name="Kierunek" Relationship="Self.FK_Student_Kierunek" FromRole="Student" ToRole="Kierunek" />
+          <NavigationProperty Name="Pokoj" Relationship="Self.FK_Student_Pokoj" FromRole="Student" ToRole="Pokoj" />
+        </EntityType>
+        <EntityType Name="Uczelnia">
+          <Key>
+            <PropertyRef Name="id_uczelni" />
+          </Key>
+          <Property Name="id_uczelni" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nazwa" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_adresu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adres" Relationship="Self.FK_Uczelnia_Adres" FromRole="Uczelnia" ToRole="Adres" />
+          <NavigationProperty Name="Kierunek" Relationship="Self.FK_Kierunek_Uczelnia" FromRole="Uczelnia" ToRole="Kierunek" />
+        </EntityType>
+        <Association Name="FK_Budynek_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Budynek">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Opiekun_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Opiekun" Type="Self.Opiekun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Opiekun">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uczelnia_Adres">
+          <End Role="Adres" Type="Self.Adres" Multiplicity="1" />
+          <End Role="Uczelnia" Type="Self.Uczelnia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adres">
+              <PropertyRef Name="id_adresu" />
+            </Principal>
+            <Dependent Role="Uczelnia">
+              <PropertyRef Name="id_adresu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Budynek_Opiekun">
+          <End Role="Opiekun" Type="Self.Opiekun" Multiplicity="1" />
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Opiekun">
+              <PropertyRef Name="id_opiekuna" />
+            </Principal>
+            <Dependent Role="Budynek">
+              <PropertyRef Name="id_opiekuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pokoj_Budynek">
+          <End Role="Budynek" Type="Self.Budynek" Multiplicity="1" />
+          <End Role="Pokoj" Type="Self.Pokoj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budynek">
+              <PropertyRef Name="id_budynku" />
+            </Principal>
+            <Dependent Role="Pokoj">
+              <PropertyRef Name="id_budynku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kierunek_Uczelnia">
+          <End Role="Uczelnia" Type="Self.Uczelnia" Multiplicity="1" />
+          <End Role="Kierunek" Type="Self.Kierunek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uczelnia">
+              <PropertyRef Name="id_uczelni" />
+            </Principal>
+            <Dependent Role="Kierunek">
+              <PropertyRef Name="id_uczelni" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Kierunek">
+          <End Role="Kierunek" Type="Self.Kierunek" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kierunek">
+              <PropertyRef Name="id_kierunku" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_kierunku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Pokoj">
+          <End Role="Pokoj" Type="Self.Pokoj" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pokoj">
+              <PropertyRef Name="id_pokoju" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="id_pokoju" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PokojeDlaStudentowEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adres" EntityType="Self.Adres" />
+          <EntitySet Name="Budynek" EntityType="Self.Budynek" />
+          <EntitySet Name="Kierunek" EntityType="Self.Kierunek" />
+          <EntitySet Name="Opiekun" EntityType="Self.Opiekun" />
+          <EntitySet Name="Pokoj" EntityType="Self.Pokoj" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="Uczelnia" EntityType="Self.Uczelnia" />
+          <AssociationSet Name="FK_Budynek_Adres" Association="Self.FK_Budynek_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Budynek" EntitySet="Budynek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Opiekun_Adres" Association="Self.FK_Opiekun_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Opiekun" EntitySet="Opiekun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Adres" Association="Self.FK_Student_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uczelnia_Adres" Association="Self.FK_Uczelnia_Adres">
+            <End Role="Adres" EntitySet="Adres" />
+            <End Role="Uczelnia" EntitySet="Uczelnia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Budynek_Opiekun" Association="Self.FK_Budynek_Opiekun">
+            <End Role="Opiekun" EntitySet="Opiekun" />
+            <End Role="Budynek" EntitySet="Budynek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pokoj_Budynek" Association="Self.FK_Pokoj_Budynek">
+            <End Role="Budynek" EntitySet="Budynek" />
+            <End Role="Pokoj" EntitySet="Pokoj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kierunek_Uczelnia" Association="Self.FK_Kierunek_Uczelnia">
+            <End Role="Uczelnia" EntitySet="Uczelnia" />
+            <End Role="Kierunek" EntitySet="Kierunek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Kierunek" Association="Self.FK_Student_Kierunek">
+            <End Role="Kierunek" EntitySet="Kierunek" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Pokoj" Association="Self.FK_Student_Pokoj">
+            <End Role="Pokoj" EntitySet="Pokoj" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PokojeDlaStudentowModelStoreContainer" CdmEntityContainer="PokojeDlaStudentowEntities">
+          <EntitySetMapping Name="Adres">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Adres">
+              <MappingFragment StoreEntitySet="Adres">
+                <ScalarProperty Name="id_adresu" ColumnName="id_adresu" />
+                <ScalarProperty Name="miejscowosc" ColumnName="miejscowosc" />
+                <ScalarProperty Name="poczta" ColumnName="poczta" />
+                <ScalarProperty Name="kod_pocztowy" ColumnName="kod_pocztowy" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
+                <ScalarProperty Name="numer_domu" ColumnName="numer_domu" />
+                <ScalarProperty Name="numer_lokalu" ColumnName="numer_lokalu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Budynek">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Budynek">
+              <MappingFragment StoreEntitySet="Budynek">
+                <ScalarProperty Name="id_budynku" ColumnName="id_budynku" />
+                <ScalarProperty Name="ilosc_pokoi" ColumnName="ilosc_pokoi" />
+                <ScalarProperty Name="ilosc_pieter" ColumnName="ilosc_pieter" />
+                <ScalarProperty Name="czy_winda" ColumnName="czy_winda" />
+                <ScalarProperty Name="id_adresu" ColumnName="id_adresu" />
+                <ScalarProperty Name="id_opiekuna" ColumnName="id_opiekuna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kierunek">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Kierunek">
+              <MappingFragment StoreEntitySet="Kierunek">
+                <ScalarProperty Name="id_kierunku" ColumnName="id_kierunku" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="id_uczelni" ColumnName="id_uczelni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opiekun">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Opiekun">
+              <MappingFragment StoreEntitySet="Opiekun">
+                <ScalarProperty Name="id_opiekuna" ColumnName="id_opiekuna" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="id_adresu" ColumnName="id_adresu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pokoj">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Pokoj">
+              <MappingFragment StoreEntitySet="Pokoj">
+                <ScalarProperty Name="id_pokoju" ColumnName="id_pokoju" />
+                <ScalarProperty Name="nr_pokoju" ColumnName="nr_pokoju" />
+                <ScalarProperty Name="czy_lazienka" ColumnName="czy_lazienka" />
+                <ScalarProperty Name="id_budynku" ColumnName="id_budynku" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="id_studenta" ColumnName="id_studenta" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="pesel" ColumnName="pesel" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="id_adresu" ColumnName="id_adresu" />
+                <ScalarProperty Name="id_kierunku" ColumnName="id_kierunku" />
+                <ScalarProperty Name="id_pokoju" ColumnName="id_pokoju" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uczelnia">
+            <EntityTypeMapping TypeName="PokojeDlaStudentowModel.Uczelnia">
+              <MappingFragment StoreEntitySet="Uczelnia">
+                <ScalarProperty Name="id_uczelni" ColumnName="id_uczelni" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+                <ScalarProperty Name="id_adresu" ColumnName="id_adresu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

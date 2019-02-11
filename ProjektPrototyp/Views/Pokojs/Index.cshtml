@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProjektPrototyp.Pokoj>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nr_pokoju)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.czy_lazienka)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Budynek.id_budynku)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nr_pokoju)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.czy_lazienka)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Budynek.id_budynku)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_pokoju }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_pokoju }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_pokoju })
+        </td>
+    </tr>
+}
+
+</table>

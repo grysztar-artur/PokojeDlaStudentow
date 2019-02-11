@@ -1,0 +1,74 @@
+﻿@model ProjektPrototyp.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nazwisko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nazwisko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pesel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pesel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres.miejscowosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres.miejscowosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kierunek.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kierunek.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pokoj.id_pokoju)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pokoj.id_pokoju)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_studenta }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

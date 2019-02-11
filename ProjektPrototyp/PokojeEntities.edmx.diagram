@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1011bb095acd497daf443f1eee98ca6e" Name="Diagram1">
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Adres" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Budynek" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Kierunek" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Opiekun" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Pokoj" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Student" Width="1.5" PointX="9.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PokojeDlaStudentowModel.Uczelnia" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Budynek_Adres" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Opiekun_Adres" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Student_Adres" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Uczelnia_Adres" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Budynek_Opiekun" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Pokoj_Budynek" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Kierunek_Uczelnia" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Student_Kierunek" ManuallyRouted="false" />
+        <AssociationConnector Association="PokojeDlaStudentowModel.FK_Student_Pokoj" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

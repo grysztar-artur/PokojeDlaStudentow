@@ -1,0 +1,80 @@
+﻿@model ProjektPrototyp.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nazwisko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nazwisko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pesel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pesel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres.miejscowosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres.miejscowosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kierunek.nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kierunek.nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pokoj.id_pokoju)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pokoj.id_pokoju)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@model ProjektPrototyp.Budynek
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Budynek</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ilosc_pokoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ilosc_pokoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ilosc_pieter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ilosc_pieter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.czy_winda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.czy_winda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres.miejscowosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres.miejscowosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opiekun.imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opiekun.imie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_budynku }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

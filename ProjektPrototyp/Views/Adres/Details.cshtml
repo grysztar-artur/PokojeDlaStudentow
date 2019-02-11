@@ -1,0 +1,66 @@
+﻿@model ProjektPrototyp.Adres
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Adres</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.miejscowosc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.miejscowosc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.poczta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.poczta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kod_pocztowy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kod_pocztowy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ulica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ulica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numer_domu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numer_domu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numer_lokalu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numer_lokalu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_adresu }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,42 @@
+﻿@model ProjektPrototyp.Pokoj
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pokoj</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nr_pokoju)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nr_pokoju)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.czy_lazienka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.czy_lazienka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Budynek.id_budynku)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Budynek.id_budynku)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_pokoju }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
